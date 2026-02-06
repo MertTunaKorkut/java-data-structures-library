@@ -35,5 +35,5 @@ I have implemented the logic for the following structures within the provided ac
 
 ## Academic Integrity Note
 This project was developed as part of a university coursework.
-* **Framework:** Abstract classes, interfaces, tests, and base traversal algorithms (BFS/DFS) were provided by the course instructor.
-* **Implementation:** All core data structure logic, collision handling, tree rotations, and the implementation of **Dijkstra's Algorithm** were written by **Mert Tuna Korkut**.
+* **Framework:** Abstract classes, interfaces, tests, and base traversal algorithms (BreadthFirstTraversal/DepthFirstTraversal) were provided by the course instructor.
+* **Implementation:** All core data structure logic, collision handling, tree rotations, BFTPaths, DFTPaths, and the implementation of **Dijkstra's Algorithm** were written by **Mert Tuna Korkut**.
