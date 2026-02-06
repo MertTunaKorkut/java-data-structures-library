@@ -2,7 +2,7 @@
 
 This repository contains a comprehensive implementation of fundamental data structures, developed to understand the core algorithms behind Java's built-in collections.
 
-## 📂 Project Overview
+## Project Overview
 The goal of this project was to manually implement various Abstract Data Types (ADTs) using different underlying strategies (Array-based, Linked-based, Hashing, Tree-based) to analyze their efficiency.
 
 **Key Features:**
@@ -10,7 +10,7 @@ The goal of this project was to manually implement various Abstract Data Types (
 * **Architecture:** OOP Principles (Polymorphism, Inheritance)
 * **Scope:** 11 Data Types, 20+ Concrete Implementations.
 
-## 🛠️ Implemented Structures
+## Implemented Structures
 I have implemented the logic for the following structures within the provided academic interfaces:
 
 ### 1. Lists & Queues
@@ -33,7 +33,7 @@ I have implemented the logic for the following structures within the provided ac
 * **Graph:** `DictionaryGraph`, `DictionaryDiGraph` (Directed Graph)
 * **Graph Algorithms:** `DijkstraAlgorithm` (Shortest Path Finding)
 
-## ⚠️ Academic Integrity Note
+## Academic Integrity Note
 This project was developed as part of a university coursework.
 * **Framework:** Abstract classes, interfaces, tests, and base traversal algorithms (BFS/DFS) were provided by the course instructor.
 * **Implementation:** All core data structure logic, collision handling, tree rotations, and the implementation of **Dijkstra's Algorithm** were written by **Mert Tuna Korkut**.
