@@ -122,55 +122,114 @@ public class HashBag<T> extends AbstractBag<T> implements Bag<T> {
    * Creates a new {@code HashBag} that is a copy of the given one.
    * <p> Time complexity: O(n), where n is the number of unique elements.
    */
-  public static <T> HashBag<T> copyOf(HashBag<T> that) { throw new UnsupportedOperationException("Not implemented yet"); }
+  public static <T> HashBag<T> copyOf(HashBag<T> that) {
+    return new HashBag<>(LinearProbingHashTable.copyOf(that.hashTable));
+  }
 
   /**
    * Creates a new {@code HashBag} from any {@code Bag}.
    * <p> Time complexity: Near O(m) on average, where m is the total number of elements.
    */
-  public static <T> HashBag<T> copyOf(Bag<T> that) { throw new UnsupportedOperationException("Not implemented yet"); }
+  public static <T> HashBag<T> copyOf(Bag<T> that) {
+    HashBag<T> hashBag = withCapacity(that.size());
+
+    if(that.isEmpty()){
+      return hashBag;
+    }
+
+    for(T e: that){
+      hashBag.insert(e);
+    }
+
+    return hashBag;
+  }
 
   /**
    * {@inheritDoc}
    * <p> Time complexity: O(1).
    */
   @Override
-  public boolean isEmpty() { throw new UnsupportedOperationException("Not implemented yet"); }
+  public boolean isEmpty() {
+    return hashTable.isEmpty();
+  }
 
   /**
    * {@inheritDoc}
    * <p> Time complexity: O(n), where n is the number of unique elements.
    */
   @Override
-  public int size() { throw new UnsupportedOperationException("Not implemented yet"); }
+  public int size() {
+    int totalSize = 0;
+
+    for(Pair<T> pair : hashTable){
+      totalSize += pair.occurrences();
+    }
+
+    return totalSize;
+  }
 
   /**
    * {@inheritDoc}
    * <p> Time complexity: Near O(1) on average.
    */
   @Override
-  public void insert(T element) { throw new UnsupportedOperationException("Not implemented yet"); }
+  public void insert(T element) {
+    Pair<T> dummyPair = Pair.of(element, 1);
+
+    if(hashTable.contains(dummyPair)){
+      Pair<T> newPair = Pair.of(element, hashTable.search(dummyPair).occurrences() + 1 );
+      hashTable.insert(newPair);
+
+    }
+    else{
+      hashTable.insert(dummyPair);
+    }
+
+  }
 
   /**
    * {@inheritDoc}
    * <p> Time complexity: Near O(1) on average.
    */
   @Override
-  public void delete(T element) { throw new UnsupportedOperationException("Not implemented yet"); }
+  public void delete(T element) {
+    Pair<T> dummyPair = Pair.withElement(element);
+
+    if(hashTable.contains(dummyPair)){
+      Pair<T> newPair = Pair.of(element, hashTable.search(dummyPair).occurrences() - 1 );
+
+      if(newPair.occurrences() == 0){
+          hashTable.delete(newPair);
+      }
+      else{
+        hashTable.insert(newPair);
+      }
+
+    }
+
+  }
 
   /**
    * {@inheritDoc}
    * <p> Time complexity: O(n), where n is the number of unique elements.
    */
   @Override
-  public void clear() { throw new UnsupportedOperationException("Not implemented yet"); }
+  public void clear() {
+    hashTable.clear();
+  }
 
   /**
    * {@inheritDoc}
    * <p> Time complexity: Near O(1) on average.
    */
   @Override
-  public int occurrences(T element) { throw new UnsupportedOperationException("Not implemented yet"); }
+  public int occurrences(T element) {
+    Pair<T> dummyPair = Pair.withElement(element);
+
+    Pair<T> pair = hashTable.search(dummyPair);
+
+    return pair != null ? pair.occurrences() : 0;
+  }
 
   @Override
   public Iterator<T> iterator() {
@@ -206,9 +265,26 @@ public class HashBag<T> extends AbstractBag<T> implements Bag<T> {
     }
 
     @Override
-    public boolean hasNext() { throw new UnsupportedOperationException("Not implemented yet"); }
+    public boolean hasNext() {
+      return occurrencesLeft > 0;
+    }
 
     @Override
-    public T next() { throw new UnsupportedOperationException("Not implemented yet"); }
+    public T next() {
+
+      if(!hasNext()){
+        throw new NoSuchElementException();
+      }
+
+      T currentToReturn = currentElement;
+
+      occurrencesLeft--;
+
+      if(occurrencesLeft == 0){
+        advanceToNextElement();
+      }
+
+      return currentToReturn;
+    }
   }
 }
